@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>102</title>
+<style>
+  html, body { margin: 0; height: 100%; font-family: "Malgun Gothic", sans-serif; background: #f4f5f7; }
+  body { display: flex; flex-direction: column; }
+  #bar { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #2b3a55; color: #fff; }
+  #bar h1 { font-size: 16px; margin: 0 12px 0 0; font-weight: 600; }
+  #bar button { border: 0; border-radius: 6px; padding: 7px 14px; font: inherit; font-size: 13px; cursor: pointer; color: #fff; background: #4a5b7c; }
+  #bar button:hover { background: #5d7099; }
+  #bar button:disabled { opacity: .45; cursor: default; }
+  #bar #run { background: #2e9d57; } #bar #run:hover { background: #38b867; }
+  #bar #stop { background: #c9473d; } #bar #stop:hover { background: #dd5a50; }
+  #spacer { flex: 1; }
+  #status { padding: 6px 12px; font-size: 13px; background: #e8ebf0; color: #333; border-bottom: 1px solid #d3d8e0; min-height: 18px; }
+  #status.run { background: #fff3cd; } #status.ok { background: #d9f2e1; }
+  #status.err { background: #f8d7da; color: #842029; } #status.warn { background: #ffe5cc; }
+  #blocklyDiv { flex: 1; min-height: 0; }
+</style>
+</head>
+<body>
+  <div id="bar">
+    <h1>102</h1>
+    <button id="run">실행</button>
+    <button id="stop" disabled>정지</button>
+    <span id="spacer"></span>
+    <button id="open">열기</button>
+    <button id="save">저장</button>
+    <button id="clear">비우기</button>
+  </div>
+  <div id="status">블록을 왼쪽 메뉴에서 끌어다 위에서 아래로 이어 붙이세요. 실행 중 ESC 로 중지할 수 있어요.</div>
+  <div id="blocklyDiv"></div>
+
+  <script src="lib/blockly_compressed.js"></script>
+  <script src="lib/blocks_compressed.js"></script>
+  <script src="lib/ko.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
