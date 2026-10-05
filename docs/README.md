@@ -9,6 +9,21 @@
 
 파이썬이 뭔지도 모른다면, AI에게 이 저장소 주소를 던져 주고 설치해 달라고 하세요.
 
+## 사용 방법
+영상으로 보세요.
+
+**사용 방법 1**
+
+<video src="https://github.com/hcjplj/102/raw/main/docs/sample1.mp4" controls width="720"></video>
+
+[영상이 안 보이면 여기를 눌러 내려받기](sample1.mp4)
+
+**사용 방법 2**
+
+<video src="https://github.com/hcjplj/102/raw/main/docs/sample2.mp4" controls width="720"></video>
+
+[영상이 안 보이면 여기를 눌러 내려받기](sample2.mp4)
+
 ## 실행
 ```bash
 pip install -r requirements.txt
@@ -34,7 +49,7 @@ main.py        앱 실행 (블록 편집 화면)
 runner.py      저장한 프로젝트(JSON) 바로 실행
 autobot.vbs    콘솔 창 없이 main.py 실행
 core/          핵심 코드 (engine, recorder, datetime_blocks)와 화면(web/)
-docs/          문서 (README, THIRD_PARTY_NOTICES)
+docs/          문서 (README, THIRD_PARTY_NOTICES)와 사용 방법 영상(sample*.mp4)
 ```
 `LICENSE`, `requirements.txt`, `.gitignore` 는 맨 위에 있습니다. 설치 명령은 맨 위 폴더에서 실행하세요.
 
