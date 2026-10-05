@@ -9,17 +9,15 @@
 추가기능은 블럭을 만들어서 사용할 수 있도록 이 방법을 선택했습니다.
 
 ## 사용 방법
-영상으로 보세요.
+이미지를 누르면 영상이 재생됩니다.
 
 **사용 방법 1**
 
-<video src="https://github.com/hcjplj/102/raw/main/docs/sample1.mp4" controls width="720"></video>
+[![사용 방법 1 영상](sample1.png)](https://github.com/hcjplj/102/blob/main/docs/sample1.mp4)
 
 **사용 방법 2**
 
-<video src="https://github.com/hcjplj/102/raw/main/docs/sample2.mp4" controls width="720"></video>
-
-
+[![사용 방법 2 영상](sample2.png)](https://github.com/hcjplj/102/blob/main/docs/sample2.mp4)
 
 ## 실행
 ```bash
@@ -30,20 +28,29 @@ python main.py
 
 > `core/web/index.html` 을 브라우저로 직접 열면 화면만 보이고 실행·녹화는 동작하지 않습니다. 반드시 `main.py` 로 실행하세요.
 
-## 저장한 프로젝트를 화면 없이 바로 실행 (예약 실행용)
-앱에서 `저장`한 `.json` 파일은 `runner.py` 로 앱을 열지 않고 바로 실행할 수 있습니다.
+## 저장한 프로젝트를 실행 파일로 만들기 (예약 실행용)
+앱에서 `저장`한 `.json` 파일을 골라, 더블클릭하면 바로 실행되는 파일을 만들 수 있습니다.
 ```bash
-python runner.py 내작업.json
-python runner.py 내작업.json --delay 5 --log run.log   # 5초 뒤 시작, 기록을 파일에 남김
-pythonw runner.py 내작업.json --log run.log            # 콘솔 창 없이
+pip install pyinstaller     # exe 를 만들 때만, 처음 한 번
+python make_launcher.py
+```
+창에서 `JSON 선택하고 만들기`를 누르면 JSON 파일 옆에 같은 이름의 파일이 생깁니다. (여러 개를 한꺼번에 골라도 됩니다)
+- **exe**: JSON 이 안에 들어가서 파이썬이 없는 PC 에서도 실행됩니다. JSON 을 고치면 exe 를 다시 만들어야 합니다.
+- **bat**: 이 PC 의 파이썬으로 실행하며 바로 만들어집니다. `시작 전 대기(초)`를 정할 수 있습니다.
+- 실행 기록은 옆에 `이름.log` 로 쌓입니다. 콘솔 창 없이 실행하는 옵션도 있습니다.
+
+앱 없이 명령으로 바로 실행할 수도 있습니다.
+```bash
+python make_launcher.py --run 내작업.json
+python make_launcher.py --run 내작업.json --delay 5 --log run.log   # 5초 뒤 시작, 기록을 파일에 남김
 ```
 - 실행 중 `ESC` 로 멈춥니다. 종료 코드: 0 정상 / 1 실행 중 오류 / 2 사용자가 중지 / 3 파일을 읽을 수 없음
-- 윈도우 작업 스케줄러에 이 명령을 등록하면 정해진 시간에 자동으로 실행됩니다. 마우스와 키보드를 직접 조작하므로 **사용자가 로그인해 있고 화면이 잠겨 있지 않을 때만** 동작합니다.
+- 윈도우 작업 스케줄러에 만든 파일을 등록하면 정해진 시간에 자동으로 실행됩니다. 마우스와 키보드를 직접 조작하므로 **사용자가 로그인해 있고 화면이 잠겨 있지 않을 때만** 동작합니다.
 
 ## 폴더 구성
 ```
 main.py        앱 실행 (블록 편집 화면)
-runner.py      저장한 프로젝트(JSON) 바로 실행
+make_launcher.py  저장한 프로젝트(JSON)를 실행 파일(exe, bat)로 만들기 / 바로 실행
 autobot.vbs    콘솔 창 없이 main.py 실행
 core/          핵심 코드 (engine, recorder, datetime_blocks)와 화면(web/)
 docs/          문서 (README, THIRD_PARTY_NOTICES)와 사용 방법 영상(sample*.mp4)
