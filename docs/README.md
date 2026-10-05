@@ -19,6 +19,10 @@
 
 [![사용 방법 2 영상](https://img.youtube.com/vi/b48dDS9TGv8/hqdefault.jpg)](https://youtu.be/b48dDS9TGv8)
 
+**사용 방법 3**
+
+[![사용 방법 3 영상](https://img.youtube.com/vi/FnxqjXBqVe4/hqdefault.jpg)](https://youtu.be/FnxqjXBqVe4)
+
 ## 실행
 ```bash
 pip install -r requirements.txt
