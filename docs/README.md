@@ -9,15 +9,15 @@
 추가기능은 블럭을 만들어서 사용할 수 있도록 이 방법을 선택했습니다.
 
 ## 사용 방법
-이미지를 누르면 영상이 재생됩니다.
+이미지를 누르면 유튜브에서 영상이 재생됩니다.
 
 **사용 방법 1**
 
-[![사용 방법 1 영상](sample1.png)](https://github.com/hcjplj/102/blob/main/docs/sample1.mp4)
+[![사용 방법 1 영상](https://img.youtube.com/vi/iADufHGeMPU/hqdefault.jpg)](https://youtu.be/iADufHGeMPU)
 
 **사용 방법 2**
 
-[![사용 방법 2 영상](sample2.png)](https://github.com/hcjplj/102/blob/main/docs/sample2.mp4)
+[![사용 방법 2 영상](https://img.youtube.com/vi/b48dDS9TGv8/hqdefault.jpg)](https://youtu.be/b48dDS9TGv8)
 
 ## 실행
 ```bash
@@ -53,7 +53,7 @@ main.py        앱 실행 (블록 편집 화면)
 make_launcher.py  저장한 프로젝트(JSON)를 실행 파일(exe, bat)로 만들기 / 바로 실행
 autobot.vbs    콘솔 창 없이 main.py 실행
 core/          핵심 코드 (engine, recorder, datetime_blocks)와 화면(web/)
-docs/          문서 (README, THIRD_PARTY_NOTICES)와 사용 방법 영상(sample*.mp4)
+docs/          문서 (README, THIRD_PARTY_NOTICES)
 ```
 `LICENSE`, `requirements.txt`, `.gitignore` 는 맨 위에 있습니다. 설치 명령은 맨 위 폴더에서 실행하세요.
 
