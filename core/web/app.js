@@ -431,11 +431,14 @@ const ws = Blockly.inject('blocklyDiv', {
 window.addEventListener('resize', () => Blockly.svgResize(ws));
 
 const SAMPLE = { blocks: { languageVersion: 0, blocks: [{
-  type: 'excel_each', x: 40, y: 30,
-  fields: { FILE: '', SHEET: 'Sheet1', START: 2, COL: 'A' },
-  inputs: { DO: { block: { type: 'type_text',
-    inputs: { TEXT: { block: { type: 'excel_value' } } },
-    next: { block: { type: 'key_press', fields: { KEY: 'enter' } } } } } },
+  type: 'macro_play', x: 40, y: 30,
+  next: { block: {
+    type: 'excel_each',
+    fields: { FILE: '', SHEET: 'Sheet1', START: 2, COL: 'A' },
+    inputs: { DO: { block: { type: 'type_text',
+      inputs: { TEXT: { block: { type: 'excel_value' } } },
+      next: { block: { type: 'key_press', fields: { KEY: 'enter' } } } } } },
+  } },
 }] } };
 Blockly.serialization.workspaces.load(SAMPLE, ws);
 

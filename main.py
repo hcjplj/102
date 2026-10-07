@@ -91,8 +91,9 @@ class Api:
         return r[0] if r else None
 
     def record_macro(self):
-        status("3초 뒤 녹화를 시작합니다. 동작을 수행하고 ESC 로 끝내세요.", "run")
-        time.sleep(3)
+        for n in (3, 2, 1):
+            status(f"{n}초 뒤 녹화를 시작합니다. 동작을 수행하고 ESC 로 끝내세요.", "run")
+            time.sleep(1)
         window.minimize()
         time.sleep(0.5)
         try:
@@ -145,7 +146,7 @@ class Api:
 def main():
     global window
     scr = webview.screens[0]
-    w, h = int(scr.width * 0.5), int(scr.height * 0.9)  # 가로 50%, 세로 90%
+    w, h = int(scr.width / 3), int(scr.height * 0.6)  # 가로 33%, 세로 60%
     window = webview.create_window(
         "102",
         url=os.path.join(HERE, "core", "web", "index.html"),

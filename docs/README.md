@@ -8,16 +8,14 @@
 
 추가기능은 블럭을 만들어서 사용할 수 있도록 이 방법을 선택했습니다.
 
+LLM, AI 토큰 사용없이 실행되는 파이썬 코드입니다.
+
+자동
+
 ## 사용 방법
 이미지를 누르면 유튜브에서 영상이 재생됩니다.
 
-**사용 방법 1**
-
-[![사용 방법 1 영상](https://img.youtube.com/vi/iADufHGeMPU/hqdefault.jpg)](https://youtu.be/iADufHGeMPU)
-
-**사용 방법 2**
-
-[![사용 방법 2 영상](https://img.youtube.com/vi/b48dDS9TGv8/hqdefault.jpg)](https://youtu.be/b48dDS9TGv8)
+[![사용 방법 영상](https://img.youtube.com/vi/E9QhYblxbB4/hqdefault.jpg)](https://youtu.be/E9QhYblxbB4)
 
 **사용 방법 3**
 
@@ -25,10 +23,10 @@
 
 ## 실행
 ```bash
-pip install -r requirements.txt
-python main.py
+setup.bat
+102.bat
 ```
-창 없이 실행하려면 `autobot.vbs` 를 더블클릭하세요. (오류는 `error.log` 에 남습니다)
+창 없이 실행하려면 `102.bat` 을 더블클릭하세요. (처음에는 `setup.bat` 으로 필요한 패키지를 설치하세요) (오류는 `error.log` 에 남습니다)
 
 > `core/web/index.html` 을 브라우저로 직접 열면 화면만 보이고 실행·녹화는 동작하지 않습니다. 반드시 `main.py` 로 실행하세요.
 
@@ -55,7 +53,8 @@ python make_launcher.py --run 내작업.json --delay 5 --log run.log   # 5초 �
 ```
 main.py        앱 실행 (블록 편집 화면)
 make_launcher.py  저장한 프로젝트(JSON)를 실행 파일(exe, bat)로 만들기 / 바로 실행
-autobot.vbs    콘솔 창 없이 main.py 실행
+102.bat        콘솔 창 없이 main.py 실행
+setup.bat      필요한 파이썬 패키지 설치
 core/          핵심 코드 (engine, recorder, datetime_blocks)와 화면(web/)
 docs/          문서 (README, THIRD_PARTY_NOTICES)
 ```
@@ -88,4 +87,3 @@ docs/          문서 (README, THIRD_PARTY_NOTICES)
 ## 라이선스
 MIT + Commons Clause. 사용, 수정, 공유는 자유이며 **이 소프트웨어를 판매하는 것은 허용되지 않습니다.**
 자세한 내용은 [LICENSE](../LICENSE), 사용한 라이브러리는 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) 를 보세요.
-판매 허락이 필요하면 저장소의 Issues 로 문의해 주세요.

@@ -57,6 +57,7 @@ def read_rows(path, sheet, start):
         try:
             # 시트 이름이 없거나 맞지 않으면 첫 번째 시트를 쓴다
             ws = wb[sheet] if sheet in wb.sheetnames else wb.worksheets[0]
+            ws.reset_dimensions()  # 일부 프로그램이 만든 파일은 범위가 A1 로만 적혀 있어 나머지 줄을 못 읽는다
             rows = [(n, list(r)) for n, r in enumerate(ws.iter_rows(min_row=start, values_only=True), start)]
         finally:
             wb.close()
