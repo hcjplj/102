@@ -16,9 +16,9 @@ AI와 상관없는 파이썬 자동화 코드입니다.
 
 [![사용 방법 영상](https://img.youtube.com/vi/E9QhYblxbB4/hqdefault.jpg)](https://youtu.be/E9QhYblxbB4)
 
-**사용 방법 3**
+**사용 방법**
 
-[![사용 방법 3 영상](https://img.youtube.com/vi/FnxqjXBqVe4/hqdefault.jpg)](https://youtu.be/FnxqjXBqVe4)
+[![사용 방법 영상](https://img.youtube.com/vi/FnxqjXBqVe4/hqdefault.jpg)](https://youtu.be/FnxqjXBqVe4)
 
 ## 실행
 ```bash
