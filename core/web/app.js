@@ -132,6 +132,7 @@ Blockly.Blocks['macro_play'] = {
   init() {
     this.events = [];
     this.appendDummyInput().appendField('녹화 실행')
+      .appendField(new Blockly.FieldTextInput('이름 입력'), 'NAME')
       .appendField(new Blockly.FieldLabel('이벤트 0개'), 'INFO');
     this.appendDummyInput()
       .appendField(new Blockly.FieldImage(btnImg('녹화', 60, '#d6392f'), 60, 24, '녹화', () => {
