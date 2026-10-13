@@ -19,18 +19,17 @@ AI와 상관없는 파이썬 자동화 코드입니다.
 
 ## 실행
 ```bash
-main.bat
+main.pyw
 ```
 실행전 `setup.bat` 으로 필요한 패키지를 설치하세요 (오류는 `error.log` 에 남습니다)
 
 ## 폴더 구성
 ```
 setup.bat         필요한 파이썬 패키지 설치
-main.bat          콘솔 창 없이 main.py 실행
-main.py           실제실행파일 (python main.py)
-make_launcher.py  저장한 프로젝트(JSON)를 실행 파일
-core/             핵심 코드 (engine, recorder, datetime_blocks)와 화면(web/)
-docs/             문서 (README, THIRD_PARTY_NOTICES)
+main.pyw          실제실행파일
+make_launcher.pyw 저장한 JSON을 exe 실행파일로 만들어줌
+core/             폴더 : 핵심 코드 (engine, recorder, datetime_blocks)와 화면(web/)
+docs/             폴더 : 문서 (README, THIRD_PARTY_NOTICES)
 ```
 `LICENSE`, `requirements.txt`, `.gitignore` 는 맨 위에 있습니다. 설치 명령은 맨 위 폴더에서 실행하세요.
 
@@ -52,6 +51,8 @@ docs/             문서 (README, THIRD_PARTY_NOTICES)
 | 텍스트, 텍스트 합치기, 숫자 | 값 블록 |
 
 ## 사용 팁
+- 빠른 입력과 움직임은 제대로 반영이 안될 수 있습니다.
+- 마우스 가운데 휠로 이동보다는 스페이스나 페이지 다운으로 위치를 잡고 반영하는게 이런 작업 경험상 작동이 잘되는 느낌입니다.
 - 실행하면 3초 뒤 시작하고 앱 창이 최소화됩니다. 실행 중 `ESC` 로 중지할 수 있습니다.
 - 구글 시트에서 칸을 내려가며 입력할 때는 `Enter` 대신 `아래 화살표` 를 쓰세요. (Enter 는 편집 모드로 들어갑니다)
 - 녹화는 마우스 좌표를 그대로 저장하므로 창 위치나 해상도가 바뀌면 어긋납니다.
