@@ -90,10 +90,17 @@ def run_main(argv):
 
 # ───────────────────────── 파일 만들기 ─────────────────────────
 
-def make_bat(json_path, delay):
+def make_bat(json_path, delay, hidden=True):
     base = os.path.splitext(os.path.basename(json_path))[0]
     args = f" --delay {delay:g}" if delay > 0 else ""
     # JSON 과 로그는 .bat 위치 기준(%~dp0)이라 폴더째 옮겨도 동작한다
+    if hidden:  # pythonw + start: 콘솔 창 없이 실행 (오류는 .log 에 남음)
+        pyw = os.path.join(os.path.dirname(sys.executable), "pythonw.exe")
+        return (
+            "@echo off\r\n"
+            f'start "" "{pyw}" "{os.path.abspath(__file__)}" --run "%~dp0{os.path.basename(json_path)}"'
+            f' --log "%~dp0{base}.log"{args}\r\n'
+        )
     return (
         "@echo off\r\n"
         f'"{sys.executable}" "{os.path.abspath(__file__)}" --run "%~dp0{os.path.basename(json_path)}"'
@@ -134,7 +141,7 @@ def write_launcher(json_path, delay, hidden, kind):
         return build_exe(json_path, delay, hidden)
     out = os.path.splitext(json_path)[0] + ".bat"
     with open(out, "w", encoding="mbcs", newline="") as f:  # 한글 경로를 위해 시스템 기본 인코딩
-        f.write(make_bat(json_path, delay))
+        f.write(make_bat(json_path, delay, hidden))
     return out
 
 
@@ -145,7 +152,7 @@ def gui():
     root = tk.Tk()
     root.title("실행 파일 만들기")
     root.resizable(False, False)
-    hidden = tk.BooleanVar(value=False)
+    hidden = tk.BooleanVar(value=True)
     delay = tk.StringVar(value="0")
     kind = tk.StringVar(value="exe")
 
@@ -154,7 +161,7 @@ def gui():
     tk.Entry(root, textvariable=delay, width=6).grid(row=1, column=1, sticky="w")
     tk.Radiobutton(root, text="exe (파이썬 없이 실행, 만드는 데 1분 정도)", variable=kind, value="exe").grid(row=2, column=0, columnspan=2, sticky="w", padx=12)
     tk.Radiobutton(root, text="bat (이 PC의 파이썬 사용, 즉시 생성)", variable=kind, value="bat").grid(row=3, column=0, columnspan=2, sticky="w", padx=12)
-    tk.Checkbutton(root, text="콘솔 창 없이 실행 (exe 만)", variable=hidden).grid(row=4, column=0, columnspan=2, pady=4)
+    tk.Checkbutton(root, text="콘솔 창 없이 실행 (오류는 .log 에 기록)", variable=hidden).grid(row=4, column=0, columnspan=2, pady=4)
 
     def go():
         try:
