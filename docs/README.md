@@ -25,12 +25,12 @@ main.bat
 
 ## 폴더 구성
 ```
-main.py        앱 실행 (블록 편집 화면)
-make_launcher.py  저장한 프로젝트(JSON)를 실행 파일(exe, bat)로 만들기 / 바로 실행
-main.bat        콘솔 창 없이 main.py 실행
-setup.bat      필요한 파이썬 패키지 설치
-core/          핵심 코드 (engine, recorder, datetime_blocks)와 화면(web/)
-docs/          문서 (README, THIRD_PARTY_NOTICES)
+setup.bat         필요한 파이썬 패키지 설치
+main.bat          콘솔 창 없이 main.py 실행
+main.py           실제실행파일 (python main.py)
+make_launcher.py  저장한 프로젝트(JSON)를 실행 파일
+core/             핵심 코드 (engine, recorder, datetime_blocks)와 화면(web/)
+docs/             문서 (README, THIRD_PARTY_NOTICES)
 ```
 `LICENSE`, `requirements.txt`, `.gitignore` 는 맨 위에 있습니다. 설치 명령은 맨 위 폴더에서 실행하세요.
 
