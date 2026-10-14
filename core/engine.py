@@ -25,8 +25,15 @@ SPECIAL_KEYS = {
 }
 
 
-def read_rows(path, sheet, start):
-    """엑셀 파일(.xlsx/.xlsm/.xls)에서 start 행부터 [(행번호, [셀값...]), ...] 를 읽는다. 완전히 빈 줄은 제외."""
+def _is_empty(v):
+    return v is None or (isinstance(v, str) and v.strip() == "")
+
+
+def read_rows(path, sheet, start, col_idx):
+    """엑셀 파일(.xlsx/.xlsm/.xls)에서 start 행부터 [(행번호, [셀값...]), ...] 를 읽는다.
+
+    col_idx 열(0부터)의 값이 비어 있는 행을 만나면 그 행부터는 읽지 않고 끝낸다.
+    """
     if path.lower().endswith(".xls"):
         import xlrd
         try:
@@ -35,33 +42,46 @@ def read_rows(path, sheet, start):
             raise EngineError(f"엑셀 파일을 열 수 없습니다: {e}")
         # 시트 이름이 없거나 맞지 않으면 첫 번째 시트를 쓴다
         ws = wb.sheet_by_name(sheet) if sheet in wb.sheet_names() else wb.sheet_by_index(0)
-        rows = []
-        for i in range(start - 1, ws.nrows):
-            row = []
-            for c in ws.row(i):
-                if c.ctype in (xlrd.XL_CELL_EMPTY, xlrd.XL_CELL_BLANK):
-                    row.append(None)
-                elif c.ctype == xlrd.XL_CELL_DATE:
-                    row.append(xlrd.xldate.xldate_as_datetime(c.value, wb.datemode))
-                elif c.ctype == xlrd.XL_CELL_BOOLEAN:
-                    row.append(bool(c.value))
-                else:
-                    row.append(c.value)
-            rows.append((i + 1, row))
+
+        def gen():
+            for i in range(start - 1, ws.nrows):
+                row = []
+                for c in ws.row(i):
+                    if c.ctype in (xlrd.XL_CELL_EMPTY, xlrd.XL_CELL_BLANK):
+                        row.append(None)
+                    elif c.ctype == xlrd.XL_CELL_DATE:
+                        row.append(xlrd.xldate.xldate_as_datetime(c.value, wb.datemode))
+                    elif c.ctype == xlrd.XL_CELL_BOOLEAN:
+                        row.append(bool(c.value))
+                    else:
+                        row.append(c.value)
+                yield (i + 1, row)
+
+        rows_iter = gen()
     else:
         from openpyxl import load_workbook
         try:
             wb = load_workbook(path, read_only=True, data_only=True)
         except Exception as e:
             raise EngineError(f"엑셀 파일을 열 수 없습니다: {e}")
-        try:
-            # 시트 이름이 없거나 맞지 않으면 첫 번째 시트를 쓴다
-            ws = wb[sheet] if sheet in wb.sheetnames else wb.worksheets[0]
-            ws.reset_dimensions()  # 일부 프로그램이 만든 파일은 범위가 A1 로만 적혀 있어 나머지 줄을 못 읽는다
-            rows = [(n, list(r)) for n, r in enumerate(ws.iter_rows(min_row=start, values_only=True), start)]
-        finally:
+        # 시트 이름이 없거나 맞지 않으면 첫 번째 시트를 쓴다
+        ws = wb[sheet] if sheet in wb.sheetnames else wb.worksheets[0]
+        ws.reset_dimensions()  # 일부 프로그램이 만든 파일은 범위가 A1 로만 적혀 있어 나머지 줄을 못 읽는다
+        rows_iter = ((n, list(r)) for n, r in enumerate(ws.iter_rows(min_row=start, values_only=True), start))
+
+    result = []
+    try:
+        for n, r in rows_iter:
+            v = r[col_idx] if col_idx < len(r) else None
+            if _is_empty(v):  # 기준 열이 비면 여기서 반복 종료
+                break
+            result.append((n, r))
+    finally:
+        if path.lower().endswith(".xls"):
+            pass  # xlrd 는 별도 close 가 필요 없음
+        else:
             wb.close()
-    return [(n, r) for n, r in rows if any(c not in (None, "") for c in r)]
+    return result
 
 
 class Stopped(Exception):
@@ -239,7 +259,8 @@ class Engine:
             raise EngineError("엑셀 블록에 파일이 지정되지 않았습니다.")
         start = int(f.get("START", 1))
         col = self.col_index(f.get("COL", "A"))
-        rows = read_rows(path, f.get("SHEET", "").strip(), start)
+        # COL 열 값이 비는 행에서 반복을 끝낸다
+        rows = read_rows(path, f.get("SHEET", "").strip(), start, col)
         body = b.get("inputs", {}).get("DO", {}).get("block")
         saved = (self.row, self.row_no, self.col)
         self.col = col
